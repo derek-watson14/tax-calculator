@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tax Calculator</title>
+        <style>
+            table, th, td {
+                border: 2px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            #rate {
+                text-align: center;
+            }
+            #title {
+                display: flex;
+                justify-content: center;
+            }
+            .content {
+                display: flex;
+                justify-content: center;
+            }           
+        </style>
+    </head>
+    <body>
+        <div id='title'>
+            <h1>Federal Tax Calculator</h1>
+        </div>
+        <p class='content'>This is a federal tax calcularor which includes the proposed 70% tax on over $10M in annual income. 
+            The first $12,000 earned is free of federal income tax.</p>
+        <p class='content'>The following table is applied: </p>
+        <div class='content'>
+            <table>
+                <tr><th>Income before tax: </th><th>Tax Rate: </th></tr>
+                <tr><td>Over $10,012,000</td> <td id=rate>70%</td></tr>
+                <tr><td>$512,001 - $10.012M</td> <td id=rate>37%</td></tr>
+                <tr><td>$212,001 - $512K</td> <td id=rate>35%</td></tr>
+                <tr><td>$169,501 - $212K</td> <td id=rate>32%</td></tr>
+                <tr><td>$94,501 - $169.5K</td> <td id=rate>24%</td></tr>
+                <tr><td>$50,701 - $94.5K</td> <td id=rate>22%</td></tr>
+                <tr><td>$21,526 - $50.7K</td> <td id=rate>12%</td></tr>
+                <tr><td>$12,001 - $21,525</td> <td id=rate>10%</td></tr>
+                <tr><td>Under $12,001</td> <td id=rate>No Tax Due</td></tr>
+            </table>
+        </div>
+        <br>
+        <div class="content">
+            <form>
+                <label for="income"><strong>2018 Income: </strong></label>
+                <input id="income" type="text" maxlength="11" 
+                       pattern="([0-9]|[0-9][0-9]|[0-9]|[0-9][0-9]|[0-9]|[0-9][0-9]|[0-9])"/>
+            </form>
+        </div>
+        <div id="inDisplay" class="content"></div>
+        <div id="outDisplay" class="content"></div>
+        <script>
+            function taxCalculator(income) {
+                let taxTable = [[10000000, 0.7], [500000, 0.37], [2000000, 0.35], [157500, 0.32], 
+                                [82500, 0.24], [38700, 0.22], [9525, 0.12], [0, 0.10]];
+                let tax = bracketCalc(taxTable, taxableIncome(income));
+                return tax;
+            };
+            function taxableIncome(income) { 
+                if (income > 12000) return income - 12000;
+                else return 0;
+            };
+            function bracketCalc(taxTable, income) {
+                let tax = 0;
+                if (income > 0) {
+                    for (let b = 0; b < taxTable.length; b++) {
+                        if (income > taxTable[b][0]) {   
+                            tax += (income - taxTable[b][0]) * taxTable[b][1];
+                            income -= income - taxTable[b][0];
+                        }
+                    }          
+                }
+                return tax;
+            };
+            function effective(income, tax) {
+                return ((tax / income) * 100).toFixed(2);
+            }
+            let input = document.querySelector('input');
+            input.onkeyup = function() {
+                if (parseFloat(input.value) > 0) {
+                    let income = parseFloat(input.value);
+                    let tax = taxCalculator(income);
+                    let rate = effective(income, tax);
+                    let inDisplay = `<h3>Annual income before taxes: ${income.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</h3>`;
+                    let outDisplay = `<h3>Tax paid using table above: ${tax.toLocaleString('en-US', {style: 'currency', currency: 'USD'})} (${rate}% Effective Rate)</h3>`;
+                    document.getElementById('inDisplay').innerHTML = inDisplay;
+                    document.getElementById('outDisplay').innerHTML = outDisplay;
+                } else {
+                    document.getElementById('inDisplay').innerHTML = ""
+                    document.getElementById('outDisplay').innerHTML = ""
+                }
+            };
+        </script>
+    </body>
+</html>
