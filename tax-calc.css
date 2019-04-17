@@ -3,12 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   height: 100%;
 }
+
 body {
   height: 100%;
-  color: rgb(6, 9, 15);
+  color: #333333;
 }
 
 .title-container {
@@ -18,10 +20,12 @@ body {
 }
 
 .title {
+  background-color: #B3DBFF;
   width: 900px;
   padding: 50px 0;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  border-bottom: #333333 solid 2px;
 }
 
 .content-container {
@@ -33,6 +37,7 @@ body {
 
 .content {
   display: flex;
+  font-family: Arial, Helvetica, sans-serif;
   justify-content: flex-start;
   width: 900px;
 }
@@ -46,7 +51,7 @@ body {
 }
 
 .user-input {
-  padding: 15px 10px 25px 10px;
+  padding: 10px 10px 25px 10px;
 }
 
 .output {
@@ -75,6 +80,31 @@ table {
   margin: 30px 10px;
 }
 
+.results {
+  width: 100%;
+}
+
 .income {
   color: black;
+}
+
+.submit-button {
+  display: inline;
+  color: #FFF;
+  background-color: #5995DA;
+  font-weight: bold;
+  padding: 5px 25px;
+  text-align: center;
+  border: 2px solid #5D6063;
+  border-radius: 5px;
+}
+
+.submit-button:hover {
+  color: #FFF;
+  background-color: #B3DBFF;  /* Light blue */
+}
+
+input {
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
