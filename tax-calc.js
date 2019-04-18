@@ -25,47 +25,43 @@ function bracketCalc(taxTable, income) {
 };
 
 function displayEmpty() {
-  document.getElementById('income').innerHTML = "";
-  document.getElementById('taxes-paid').innerHTML = "";
-  document.getElementById('takehome').innerHTML = "";
-  document.getElementById('effective').innerHTML = "";
-}
+    document.getElementById('income').innerHTML = "";
+    document.getElementById('taxes-paid').innerHTML = "";
+    document.getElementById('takehome').innerHTML = "";
+    document.getElementById('effective').innerHTML = "";
+};
 
 function effective(income, tax) {
     return ((tax / income) * 100).toFixed(2);
-}
-
-function includeBracket() {
-  if (document.querySelectorAll('.extra-bracket')[0].checked == true) {
-    return 1;
-  } else return 0;
-}
-
-let input = document.querySelectorAll('.income');
-let submission = document.querySelectorAll('.submit-button');
-
-submission[0].onclick = function() {
-    console.log(includeBracket())
-    if (parseFloat(input[0].value) > 0) {
-        let income = parseFloat(input[0].value);
-        let tax = taxCalculator(income, includeBracket());
-        let takehome = income - tax;
-        let rate = effective(income, tax);
-        let incomeDisp = `<strong>${income.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</strong>`;
-        let taxesDisp = `<strong>${tax.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</strong>`; 
-        let takehomeDisp = `<strong>${takehome.toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</strong>`;
-        let effectiveDisp = `<strong>${rate}%</strong>`
-        document.getElementById('income').innerHTML = incomeDisp;
-        document.getElementById('taxes-paid').innerHTML = taxesDisp;
-        document.getElementById('takehome').innerHTML = takehomeDisp;
-        document.getElementById('effective').innerHTML = effectiveDisp;
-    } else {
-        displayEmpty();
-    }
 };
 
-input[0].onkeyup = function() {
-  if (!parseFloat(input[0].value)) {
-    displayEmpty();
-  } 
+function includeBracket() {
+    if (document.querySelectorAll('.extra-bracket')[0].checked == true) return 1;
+    else return 0;
+};
+
+function displayResults(income) {
+    let tax = taxCalculator(income, includeBracket());
+    let takehome = income - tax;
+    let rate = effective(income, tax);
+    document.getElementById('income').innerHTML = `<strong>${toUSD(income)}</strong>`;
+    document.getElementById('taxes-paid').innerHTML = `<strong>${toUSD(tax)}</strong>`;
+    document.getElementById('takehome').innerHTML = `<strong>${toUSD(takehome)}</strong>`;
+    document.getElementById('effective').innerHTML = `<strong>${rate}%</strong>`;
+};
+
+function toUSD(number) {
+    return number.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+};
+
+document.querySelectorAll('.submit-button')[0].onclick = function() {
+    let income = parseFloat(document.querySelectorAll('.income')[0].value);
+    if (income > 0) displayResults(income);
+    else displayEmpty();
+};
+
+document.querySelectorAll('.income')[0].onkeyup = function() {
+    if (!document.querySelectorAll('.income')[0].value) {
+      displayEmpty();
+    } 
 };

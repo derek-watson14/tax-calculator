@@ -3,22 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 html {
   height: 100%;
 }
-
 body {
+  background-color: aliceblue;
   height: 100%;
   color: #333333;
 }
 
 .title-container {
-  background-color: aliceblue;
   display: flex;
   justify-content: center;
 }
-
 .title {
   background-color: #B3DBFF;
   width: 900px;
@@ -28,40 +25,30 @@ body {
   border-bottom: #333333 solid 2px;
 }
 
+
 .content-container {
   background-color: aliceblue;  
   display: flex;
   justify-content: center;
   height: 100%;
 }
-
 .content {
   display: flex;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: flex-start;
   width: 900px;
 }
-.info-containter {
+
+.tax-table-container {
+  width: 40%;
   display: flex;
-  height: 100%;
+  justify-content: center;
 }
-
-.text {
-  padding: 30px 10px 25px 10px;
-}
-
-.user-input {
-  padding: 10px 10px 25px 10px;
-}
-
-.output {
-  padding: 15px 10px 25px 10px;
-}
-
 .tax-table {
-  height: 100%;
+  margin: 20px 5px;
+  width: 450px;
+  height: 90%;
 }
-
 table, th, td {
   border: 2px solid aliceblue;
   background-color: #b3dbff;
@@ -70,24 +57,33 @@ table, th, td {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: inherit;
 }
-
 th, td {
   padding: 8px;
 }
 
-table {
-  width: 300px;
-  margin: 30px 10px;
-}
 
-.results {
+.info-containter {
+  display: flex;
+  height: 100%;
+}
+.text-container {
   width: 100%;
 }
-
-.income {
-  color: black;
+.text {
+  width: 100%;
+  margin: 20px 5px;
 }
 
+.user-input-container {
+  width: 100%;
+}
+.user-input {
+  width: 100%;
+  margin: 20px 5px;
+}
+input {
+  margin-bottom: 10px;
+}
 .submit-button {
   display: inline;
   color: #FFF;
@@ -98,13 +94,18 @@ table {
   border: 2px solid #5D6063;
   border-radius: 5px;
 }
-
 .submit-button:hover {
   color: #FFF;
   background-color: #B3DBFF;  /* Light blue */
 }
 
-input {
-  margin-bottom: 10px;
-  margin-top: 10px;
+.results-container {
+  width: 100%;
+}
+.results-table {
+  width: 100%;
+  margin: 20px 5px;
+}
+.output {
+  padding: 15px 10px 25px 10px;
 }
